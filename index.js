@@ -18,36 +18,44 @@ inquirer.prompt([
         message: "Enter a description of your project",
         name: "Description",
     },
+    // {
+    //     type: "input",
+    //     message: "Enter a table of contents",
+    //     name: "Contents",
+    // },
     {
         type: "input",
-        message: "Enter a table of contents",
-        name: "Contents",
-    },
-    {
-        type: "input",
-        message: "Enter any instructions for installation",
+        message: "What command should be run to install any dependencies?",
         name: "Installation",
+        default: "npm i"
     },
     {
         type: "input",
-        message: "Enter directions for usage",
+        message: "What command should be used to run tests?",
+        name: "Tests",
+        default: "npm test"
+    },
+    {
+        type: "input",
+        message: "What does the user need to know about using the project?",
         name: "Usage",
     },
     {
-        type: "input",
-        message: "Enter details of licensing restrictions",
+        type: "list",
+        message: "What kind of license should your project have?",
         name: "Licensing",
+        choices: 
+        [ "MIT", new inquirer.Separator(), 
+        "APACHE 2.0", new inquirer.Separator(),
+        "GPL 3.0", new inquirer.Separator(),
+        "BSD 3", new inquirer.Separator(),
+        "None", new inquirer.Separator()]
     },
     {
         type: "input",
-        message: "Enter details of contributing",
+        message: "What does the user need to know about contributing to the project?",
         name: "Contributing",
-    },
-    {
-        type: "input",
-        message: "Enter details about testing that has been undertaken",
-        name: "Tests",
-    },
+    }
 ])
     .then(function (response) {
 
