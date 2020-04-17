@@ -2,7 +2,77 @@ var fs = require('fs')
 var inquirer = require('inquirer')
 const axios = require("axios");
 
-inquirer.prompt([
+//Function to write the initial file
+function writetoFile(output) {
+    fs.writeFile('README.md', output, function (err) {
+        if (err) throw err;
+        console.log('The file has been written!');
+    })
+}
+
+// Function to append the Github information to the file
+function appendGitFile(githubresponse) {
+    fs.appendFile('README.md', githubresponse, function (err) {
+        if (err) throw err;
+        console.log('The file has been updated!');
+    }
+    )
+}
+
+//Uses template literal to format the content that will be displayed in the Readme
+function generateContent(data) {
+    return (
+`
+[Badge](https://img.shields.io/badge/Test%20project-Test-blue)
+
+# Title 
+${data.title}
+
+# Table of Contents 
+* [Description](##Description)
+* [Installation](##Installation) 
+* [Usage](##Usage)
+* [Testing](##Testing)
+* [Licensing](##Licensing)
+* [Contributing-to-the-project](##Contributing to the project)
+* [Github-details](##Github details)
+
+## Description
+${data.description} 
+
+## Installation
+${data.installation}
+
+## Usage
+${data.usage}
+
+## Testing
+${data.tests}
+
+## Licensing
+${data.licensing}
+
+## Contributing to the project
+${data.contributing}
+`
+    )
+}
+
+// Format the Github content with template literal
+function generateGitContent(data) {
+    return (
+        `
+# Github details
+[GitHub URL:](http://github.com/${data.login})
+Profile picture: ${data.avatar_url}
+Name: ${data.name}
+Email: ${data.email}
+
+`)
+}
+
+//Questions to user
+const questions = [
     {
         type: "input",
         message: "What is your Github username?",
@@ -11,76 +81,66 @@ inquirer.prompt([
     {
         type: "input",
         message: "Enter the title of your project",
-        name: "Title",
+        name: "title",
     },
     {
         type: "input",
         message: "Enter a description of your project",
-        name: "Description",
+        name: "description",
     },
-    // {
-    //     type: "input",
-    //     message: "Enter a table of contents",
-    //     name: "Contents",
-    // },
     {
         type: "input",
         message: "What command should be run to install any dependencies?",
-        name: "Installation",
+        name: "installation",
         default: "npm i"
     },
     {
         type: "input",
         message: "What command should be used to run tests?",
-        name: "Tests",
+        name: "tests",
         default: "npm test"
     },
     {
         type: "input",
         message: "What does the user need to know about using the project?",
-        name: "Usage",
+        name: "usage",
     },
     {
         type: "list",
         message: "What kind of license should your project have?",
-        name: "Licensing",
-        choices: 
-        [ "MIT", new inquirer.Separator(), 
-        "APACHE 2.0", new inquirer.Separator(),
-        "GPL 3.0", new inquirer.Separator(),
-        "BSD 3", new inquirer.Separator(),
-        "None", new inquirer.Separator()]
+        name: "licensing",
+        choices:
+            ["MIT", new inquirer.Separator(),
+                "APACHE 2.0", new inquirer.Separator(),
+                "GPL 3.0", new inquirer.Separator(),
+                "BSD 3", new inquirer.Separator(),
+                "None", new inquirer.Separator()]
     },
     {
         type: "input",
         message: "What does the user need to know about contributing to the project?",
-        name: "Contributing",
+        name: "contributing",
     }
-])
-    .then(function (response) {
+]
 
-        output = JSON.stringify(response, null, '\t')
-        
-        fs.writeFile('README.md', output, function (err) {
-            if (err) throw err;
-            console.log('The file has been written!');
-        })
+inquirer.prompt(questions)
+    .then(function (response) {
+        let content = generateContent(response)
+        writetoFile(content)
+
+//Axios call to Github API
+        axios
+            .get("https://api.github.com/users/" + response.Username)
+            .then(function (res) {
+                var githubinfo = {
+                    username: res.data.login,
+                    name: res.data.name,
+                    email: res.data.email,
+                    image: res.data.avatar_url, 
+                    url: res.data.html_url,
+                }
+
+                let githubcontent = generateGitContent(githubinfo)
+                appendGitFile(githubcontent)
+            })
     })
-// console.log(response.Username)
-.then(function () {
-    axios
-    .get("https://api.github.com/users/ameliagoodson")  //Need to get the username entered here
-    .then(function (res) {
-        var gitHubinfo = {
-            name: res.data.name,
-            email: res.data.email,
-            image: res.data.avatar_url
-        }
-        var gitHubinfoStr = JSON.stringify(gitHubinfo)
-        
-    fs.appendFile('README.md', gitHubinfoStr, function (err) {
-        if (err) throw err;
-        console.log('The file has been updated!');
-    })
-})
-})
