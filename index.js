@@ -34,8 +34,8 @@ ${data.title}
 * [Usage](##Usage)
 * [Testing](##Testing)
 * [Licensing](##Licensing)
-* [Contributing-to-the-project](##Contributing to the project)
-* [Github-details](##Github details)
+* [Contributing to the project](##Contributing-to-the-project)
+* [Github details](##Github-details)
 
 ## Description
 ${data.description} 
@@ -62,9 +62,9 @@ ${data.contributing}
 function generateGitContent(data) {
     return (
         `
-# Github details
-[GitHub URL:](http://github.com/${data.login})
-Profile picture: ${data.avatar_url}
+## Github details
+[GitHub URL:](${data.url})
+Profile picture: ${data.image}
 Name: ${data.name}
 Email: ${data.email}
 
@@ -139,7 +139,6 @@ inquirer.prompt(questions)
                     image: res.data.avatar_url, 
                     url: res.data.html_url,
                 }
-
                 let githubcontent = generateGitContent(githubinfo)
                 appendGitFile(githubcontent)
             })
