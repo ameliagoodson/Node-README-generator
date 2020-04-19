@@ -34,6 +34,6 @@ Contact me
 ## Github details
 Amelia Goodson <br>
 [GitHub URL](https://github.com/ameliagoodson) <br>
-[Image URL](https://avatars0.githubusercontent.com/u/60428536?v=4)
+[Image URL](https://avatars0.githubusercontent.com/u/60428536?v=4) <br>
 Email: ameliajanegoodson@gmail.com <br>
 

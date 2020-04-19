@@ -65,7 +65,7 @@ function generateGitContent(data) {
 ## Github details
 ${data.name} <br>
 [GitHub URL](${data.url}) <br>
-[Image URL](${data.image})
+[Image URL](${data.image}) <br>
 Email: ameliajanegoodson@gmail.com <br>
 
 `)
