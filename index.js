@@ -63,10 +63,10 @@ function generateGitContent(data) {
     return (
         `
 ## Github details
-[GitHub URL:](${data.url})
-Profile picture: ${data.image}
-Name: ${data.name}
-Email: ${data.email}
+${data.name} <br>
+[GitHub URL](${data.url}) <br>
+[Image URL](${data.image})
+Email: ameliajanegoodson@gmail.com <br>
 
 `)
 }

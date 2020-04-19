@@ -20,7 +20,7 @@ Command-line application that dynamically generates a README.md from a user's in
 npm i
 
 ## Usage
-Use in conjunction with node.js
+Use in conjunction with Node.js
 
 ## Testing
 npm test
@@ -29,11 +29,11 @@ npm test
 None
 
 ## Contributing to the project
-Contact me via Github
+Contact me
 
 ## Github details
-[GitHub URL:](https://github.com/ameliagoodson)
-Profile picture: https://avatars0.githubusercontent.com/u/60428536?v=4
-Name: Amelia Goodson
-Email: null
+Amelia Goodson <br>
+[GitHub URL](https://github.com/ameliagoodson) <br>
+[Image URL](https://avatars0.githubusercontent.com/u/60428536?v=4)
+Email: ameliajanegoodson@gmail.com <br>
 
